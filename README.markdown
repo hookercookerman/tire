@@ -677,6 +677,19 @@ Well, things stay mostly the same:
     Article.search 'love'
 ```
 
+For namespaced models you will need to set the document_type; this will make sure you have the correct class name
+from the _type field set in ElasticSearch; and search results.
+
+```ruby
+    class Blog::Post
+      include Mongoid::Document
+      field :body, :type => String
+      
+      index_name 'mongo-blog-posts'
+      document_type "Blog::Post"
+    end
+```
+
 _Tire_ does not care what's your primary data storage solution, if it has an _ActiveModel_-compatible
 adapter. But there's more.
 
